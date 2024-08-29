@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STUDENT
+#define STUDENT
 
 #include <string>
 
@@ -13,3 +14,5 @@ class Student {
         std::string name;
         int id;
 };
+
+#endif
