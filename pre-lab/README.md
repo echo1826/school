@@ -1,3 +1,5 @@
+# Pre-Lab Instructions
+
 For this lab, you will write a Student class and use a one-dimensional array of Student objects to
 represent the students in a particular course. Finally, you will write a program that allows the user to
 enter data about each student in the array, and then search the array to retrieve the data.
