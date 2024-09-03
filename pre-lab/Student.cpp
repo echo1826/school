@@ -1,9 +1,11 @@
 #include <iostream>
 #include "Student.h"
 
-Student::Student() {
-    name = "";
-    id = 0;
+// initializes the name and id attributes to values in the parenthesis
+
+// default constructor 
+Student::Student() :  name(""), id(0) {
+    
 }
 
 std::string Student::getName() {
