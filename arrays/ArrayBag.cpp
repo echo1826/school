@@ -2,12 +2,12 @@
 #include <vector>
 
 template<class ItemType>
-ArrayBag<ItemType>::ArrayBag(): itemCount(0), maxItems(DEFAULT_CAPACITY) {}
+ArrayBag<ItemType>::ArrayBag() : itemCount(0), maxItems(DEFAULT_CAPACITY) {}
 
 template<class ItemType>
 bool ArrayBag<ItemType>::add(const ItemType& item) {
     bool hasRoom = itemCount < maxItems;
-    if(hasRoom) {
+    if (hasRoom) {
         items[itemCount] = item;
         itemCount++;
     }
@@ -17,7 +17,7 @@ bool ArrayBag<ItemType>::add(const ItemType& item) {
 template<class ItemType>
 std::vector<ItemType> ArrayBag<ItemType>::toVector() const {
     std::vector<ItemType> contents;
-    for(int i = 0; i < itemCount + 1; i++) {
+    for (int i = 0; i < itemCount; i++) {
         contents.push_back(items[i]);
     }
     return contents;
