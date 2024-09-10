@@ -1,2 +1,7 @@
 .vscode
 *.exe
+.vs
+**.vcxproj
+**.vcxproj.**
+**.sln
+**x64
