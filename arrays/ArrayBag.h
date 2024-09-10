@@ -9,6 +9,7 @@ private:
     ItemType items[DEFAULT_CAPACITY];
     int itemCount;
     int maxItems;
+    int getIndexOf(const ItemType& target) const;
 
 public:
     ArrayBag();
@@ -20,7 +21,6 @@ public:
     bool contains(const ItemType& entry) const;
     int getFrequencyOf(const ItemType& entry) const;
     std::vector<ItemType> toVector() const;
-    // virtual ~BagInterface() = 0;
 
 };
 
