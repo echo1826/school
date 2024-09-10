@@ -7,6 +7,9 @@ unsigned fact(unsigned n) {
     }
     // recursively call fact with n - 1 argument
     return n * fact(n - 1);
+
+
+    
 }
 
 void writeArrayBackward(const char array[], int first, int last) {

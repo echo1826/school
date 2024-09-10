@@ -36,6 +36,9 @@ void bagTest(ArrayBag<std::string>& bag) {
     std::cout << "Clearing the bag now..." << std::endl;
     bag.clear();
     displayBag(bag);
+
+
+    
 }
 
 int main() {
