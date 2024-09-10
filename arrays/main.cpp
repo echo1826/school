@@ -25,6 +25,10 @@ void bagTest(ArrayBag<std::string>& bag) {
         bag.add(items[i]);
     }
     displayBag(bag);
+
+    std::cout << "Checking for instances of one in the bag: " << bag.getFrequencyOf("one") << std::endl;
+
+    std::cout << "Searching for three (should return 1 (true)): " << bag.contains("three") << std::endl;
 }
 
 int main() {
