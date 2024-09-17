@@ -3,14 +3,14 @@
 #include "PlainBox.h"
 #include "ToyBox.h"
 
-class GoodMemoryWithArray {
+class GoodMemoryWithString {
     private:
         std::string* strPointer; // string pointer
     public:
-        GoodMemoryWithArray() : strPointer(new std::string("foo")) { // constructor that intializes the string pointer to "foo"
+        GoodMemoryWithString() : strPointer(new std::string("foo")) { // constructor that intializes the string pointer to "foo"
             std::cout << "Constructed";
         } 
-        ~GoodMemoryWithArray() { // destructor that unallocates the pointer memory from free memory
+        ~GoodMemoryWithString() { // destructor that unallocates the pointer memory from free memory
             std::cout << "Destructed";
             delete strPointer; 
             strPointer = nullptr; // after deallocating memory from pointer, set pointer to the nullptr reference so we know it's not usable anymore
@@ -28,7 +28,7 @@ class GoodMemoryWithArray {
 };
 
 void test() {
-    GoodMemoryWithArray array;
+    GoodMemoryWithString array;
     array.setString(std::string("bar"));
 }
 
