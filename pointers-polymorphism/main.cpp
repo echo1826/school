@@ -65,7 +65,31 @@ void testBoxes() {
     plainBoxPointer = nullptr;
 }
 
+void dynamicArrays() {
+    // this is a static array
+    const int MAX_SIZE = 50;
+    double myArray[MAX_SIZE];
+
+    // we can create dynamically sized arrays by using pointers
+    int arraySize = 50;
+    double* arr = new double[arraySize];
+    // copy existing pointer
+    double* oldArray = arr;
+    // re-initialize old array pointer to the new size
+    arr = new double[2 * arraySize];
+    // copy the contents from the old pointer to the new array
+    for (int i = 0; i < arraySize; i++) {
+        arr[i] = oldArray[i];
+    }
+    // deallocate the oldArray (temp) ponter
+    delete[] oldArray;
+
+    // how to deallocate memory of an array pointer
+    delete[] arr;
+}
+
 int main() {
     test();
     testBoxes();
+    dynamicArrays();
 }
