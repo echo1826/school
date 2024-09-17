@@ -1,5 +1,6 @@
 #ifndef PLAIN_BOX_
 #define PLAIN_BOX_
+#include "BoxInterface.h"
 
 template<class ItemType> // Indicates this is a template definition
 

@@ -8,10 +8,10 @@ class GoodMemoryWithString {
         std::string* strPointer; // string pointer
     public:
         GoodMemoryWithString() : strPointer(new std::string("foo")) { // constructor that intializes the string pointer to "foo"
-            std::cout << "Constructed";
+            std::cout << "Constructed" << std::endl;
         } 
         ~GoodMemoryWithString() { // destructor that unallocates the pointer memory from free memory
-            std::cout << "Destructed";
+            std::cout << "Destructed" << std::endl;
             delete strPointer; 
             strPointer = nullptr; // after deallocating memory from pointer, set pointer to the nullptr reference so we know it's not usable anymore
         }
@@ -26,6 +26,12 @@ class GoodMemoryWithString {
         }
 
 };
+
+void memoryLeak() {
+    MagicBox<std::string>* magicBoxPointer = new MagicBox<std::string>();
+    MagicBox<std::string>* otherMagicBoxPointer = new MagicBox<std::string>();
+    otherMagicBoxPointer = magicBoxPointer; // results in a memory leak as otherMagicBoxPointer was instantiated with a seperate instant of magic box and no longer has access to it on the heap (free memory)
+}
 
 void test() {
     GoodMemoryWithString array;
@@ -43,13 +49,23 @@ void testBoxes() {
     PlainBox<std::string>* plainBoxPointer = new PlainBox<std::string>();
     placeInBox(plainBoxPointer, hammerItem);
     placeInBox(plainBoxPointer, specialItem);
+    std::cout << plainBoxPointer->getItem() << std::endl;
 
     MagicBox<std::string>* magicBoxPointer = new MagicBox<std::string>();
     placeInBox(magicBoxPointer, hammerItem);
     placeInBox(magicBoxPointer, specialItem);
+    std::cout << magicBoxPointer->getItem() << std::endl;
 
+    // deallocate memory from free memory to prevent memory leaks
+    delete magicBoxPointer;
+    // preventing dangling pointers by assigning the deallocated pointers to the nullptr address rather than the previous address that was deallocated
+    magicBoxPointer = nullptr;
+
+    delete plainBoxPointer;
+    plainBoxPointer = nullptr;
 }
 
 int main() {
     test();
+    testBoxes();
 }
