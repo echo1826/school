@@ -12,7 +12,7 @@ bool ArrayStack<ItemType>::isEmpty() const {
 template<class ItemType>
 bool ArrayStack<ItemType>::push(const ItemType& newEntry) {
 	bool result = false;
-	if (top < DEFAULT_CAPACITY - 1) {
+	if (top < DEFAULT_CAPACITY - 1) { // checks to make sure we haven't reached the max size of array and increase the top index to include the new item
 		top++;
 		items[top] = newEntry;
 		result = true;
@@ -23,7 +23,7 @@ bool ArrayStack<ItemType>::push(const ItemType& newEntry) {
 template<class ItemType>
 bool ArrayStack<ItemType>::pop() {
 	bool result = false;
-	if (!isEmpty()) {
+	if (!isEmpty()) { // checks if array is empty and reduce the top index by 1 so the last item falls out of scope
 		top--;
 		result = true;
 	}

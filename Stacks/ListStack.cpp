@@ -5,7 +5,7 @@ template<class ItemType>
 ListStack<ItemType>::ListStack() : topPointer(nullptr) {}
 
 template<class ItemType>
-ListStack<ItemType>::ListStack(const ListStack<ItemType>& stack) {
+ListStack<ItemType>::ListStack(const ListStack<ItemType>& stack) { // copy constructor to copy a stack over entirely
 	Node<ItemType>* originalStackPointer = stack.topPointer;
 	if (originalStackPointer == nullptr) {
 		topPointer = nullptr;
@@ -30,7 +30,7 @@ ListStack<ItemType>::ListStack(const ListStack<ItemType>& stack) {
 }
 
 template<class ItemType>
-ListStack<ItemType>::~ListStack() {
+ListStack<ItemType>::~ListStack() { // destructor to deallocate the stack memory
 	while (!isEmpty()) {
 		pop();
 	}
@@ -38,7 +38,7 @@ ListStack<ItemType>::~ListStack() {
 
 template<class ItemType>
 bool ListStack<ItemType>::push(const ItemType& newItem) {
-	Node<ItemType>* newNodePointer = new Node<ItemType>(newItem, topPointer);
+	Node<ItemType>* newNodePointer = new Node<ItemType>(newItem, topPointer); // node constructor handles assigning the new top pointer's next to the original top pointer
 	topPtr = newNodePtr;
 	newNodePtr = nullptr;
 	return true;
@@ -48,9 +48,9 @@ template<class ItemType>
 bool ListStack<ItemType>::pop() {
 	bool result = false;
 	if (!isEmpty()) {
-		Node<ItemType>* nodeToDeletePointer = topPointer;
-		topPointer = topPointer->getNext();
-		nodeToDeletePointer->setNext(nullptr);
+		Node<ItemType>* nodeToDeletePointer = topPointer; // temp location to hold the pointer to delete
+		topPointer = topPointer->getNext(); // reassign the top pointer to the next item in list
+		nodeToDeletePointer->setNext(nullptr); // break the pointer to delete connection to the stack
 		delete nodeToDeletePointer;
 		nodeToDeletePointer = nullptr;
 		result = true;
