@@ -137,6 +137,25 @@ public:
     // Copy move constructor, Hint: Don't forget to make a "hollow" data structure.
     ListStack(ListStack&& other) noexcept {
         // TODO
+        Node<T>* originalStackPointer = other.top;
+        if (originalStackPointer == nullptr) {
+            top = nullptr;
+        }
+        else {
+            top = new Node<T>(originalStackPointer->getValue());
+            Node<T>* newStackPointer = top;
+            originalStackPointer = originalStackPointer->getNext();
+            while (originalStackPointer != nullptr) {
+                T nextValue = originalStackPointer->getValue();
+                Node<T>* newNodePointer = new Node<T>(nextValue);
+                newStackPointer->setNext(newNodePointer);
+                newStackPointer = newStackPointer->getNext();
+                originalStackPointer = originalStackPointer->getNext();
+                other.pop();
+            }
+            newStackPointer->setNext(nullptr);
+            other.pop();
+        }
     }
 
     bool isEmpty() const override {
@@ -198,15 +217,31 @@ void testListStack() {
     assert(stack1.peek() == 3);
 
     // Test move constructor.
-    /*ListStack<int> stack2(std::move(stack0));
+    ListStack<int> stack2(std::move(stack0));
     assert(stack0.isEmpty());
     assert(!stack2.isEmpty());
-    assert(stack2.peek() == 3);*/
+    assert(stack2.peek() == 3);
 }
 
 bool areCurleyBracesMatched(const string& inputString) {
     // TODO
-    return false;
+    if (inputString.length() == 0) {
+        return true;
+    }
+    ListStack<char> stack;
+    for (auto ch : inputString) {
+        if (ch == '{') {
+            stack.push(ch);
+        }
+        else if (ch == '}') {
+            bool result;
+            result = stack.pop();
+            if (!result) {
+                return result;
+            }
+        }
+    }
+    return stack.isEmpty();
 }
 
 void testAreCurleyBracesMatched() {
@@ -220,7 +255,30 @@ void testAreCurleyBracesMatched() {
 
 bool isPalindrome(const string& inputString) {
     // TODO
-    return false;
+    if (inputString.length() == 0 || inputString.length() == 1) {
+        return true;
+    }
+    ListStack<char> stack;
+    int mid = inputString.length() / 2;
+    for (int i = 0; i < mid; i++) {
+        stack.push(inputString[i]);
+    }
+    int j;
+    if (inputString.length() % 2 != 0) {
+        j = mid + 1;
+    }
+    else {
+        j = mid;
+    }
+    for (j; j < inputString.length(); j++) {
+        if (stack.peek() != inputString[j]) {
+            return false;
+        }
+        stack.pop();
+    }
+    char top;
+    
+    return stack.isEmpty();
 }
 
 void testIsPalindrome() {
@@ -235,7 +293,16 @@ void testIsPalindrome() {
 
 string reversedString(const string& inputString) {
     // TODO
-    return {};
+    string reversed;
+    ListStack<char> stack;
+    for (auto ch : inputString) {
+        stack.push(ch);
+    }
+    while (!stack.isEmpty()) {
+        reversed.push_back(stack.peek());
+        stack.pop();
+    }
+    return reversed;
 }
 
 void testReversedString() {
