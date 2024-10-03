@@ -63,7 +63,6 @@ public:
 
 void testArrayStack() {
     ArrayStack<int, MIN_ARRAY_SIZE> stack0;
-    std::cout << stack0.isEmpty();
     assert(stack0.isEmpty());
     stack0.push(10);
     assert(stack0.peek() == 10);
@@ -263,13 +262,11 @@ bool isPalindrome(const string& inputString) {
     for (int i = 0; i < mid; i++) {
         stack.push(inputString[i]);
     }
-    int j;
+    int j = mid;
     if (inputString.length() % 2 != 0) {
-        j = mid + 1;
+        j++;
     }
-    else {
-        j = mid;
-    }
+    
     for (j; j < inputString.length(); j++) {
         if (stack.peek() != inputString[j]) {
             return false;
@@ -321,6 +318,7 @@ int precedence(char op) {
         assert(op == '+' || op == '-');
         return 1;
     }
+   
 }
 
 // Helper for infixToPostFix.
@@ -335,7 +333,38 @@ bool isOperand(char ch) {
 
 string infixToPostFix(const string& infix) {
     // TODO
-    return {};
+    if (infix.length() == 0 || infix.length() == 1) {
+        return infix;
+    }
+    ListStack<char> stack;
+    string postfix;
+    for (auto ch : infix) {
+        if (isOperand(ch)) {
+            postfix.push_back(ch);
+        }
+        else if (ch == '(') {
+            stack.push(ch);
+        }
+        else if (ch == ')') {
+            while (stack.peek() != '(') {
+                postfix.push_back(stack.peek());
+                stack.pop();
+            }
+            stack.pop();
+        }
+        else {
+            while (!stack.isEmpty() && stack.peek() != '(' && precedence(ch) <= precedence(stack.peek())) {
+                postfix.push_back(stack.peek());
+                stack.pop();
+            }
+            stack.push(ch);
+        }
+    }
+    while (!stack.isEmpty()) {
+        postfix.push_back(stack.peek());
+        stack.pop();
+    }
+    return postfix;
 }
 
 void testInfixToPostFix() {
