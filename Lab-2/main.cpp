@@ -273,7 +273,6 @@ bool isPalindrome(const string& inputString) {
         }
         stack.pop();
     }
-    char top;
     
     return stack.isEmpty();
 }
