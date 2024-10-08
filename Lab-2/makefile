@@ -1,5 +1,5 @@
 main: main.cpp
-	g++ $^ -o main
+	g++ -g $^ -o main
 
 clean:
 	rm main
