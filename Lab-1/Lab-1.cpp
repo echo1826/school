@@ -39,6 +39,7 @@ int towers(int layers, char source, char destination, char spare) {
         count += towers(layers - 1, source, spare, destination);
         towers(1, source, destination, spare);
         count += towers(layers - 1, spare, destination, source);
+        return count;
     }
 }
 
