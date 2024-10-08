@@ -102,7 +102,7 @@ int partitionArrayAboutPivotIndex(int pivotIndex, int arr[], int start, int end)
             i++;
         }
     }
-    std::swap(arr[i + 1], arr[end]);
+    std::swap(arr[i], arr[end]);
     
     return i;
 }
