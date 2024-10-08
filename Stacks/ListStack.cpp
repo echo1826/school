@@ -18,7 +18,7 @@ ListStack<ItemType>::ListStack(const ListStack<ItemType>& stack) { // copy const
 
 		originalStackPointer = originalStackPointer->getNext();
 
-		while (originalStackPointer != = nullptr) {
+		while (originalStackPointer != nullptr) {
 			ItemType nextItem = originalStackPointer->getItem();
 			Node<ItemType>* newNodePointer = new Node<ItemType>(nextItem);
 			newStackPointer->setNext(newNodePointer);
@@ -39,8 +39,8 @@ ListStack<ItemType>::~ListStack() { // destructor to deallocate the stack memory
 template<class ItemType>
 bool ListStack<ItemType>::push(const ItemType& newItem) {
 	Node<ItemType>* newNodePointer = new Node<ItemType>(newItem, topPointer); // node constructor handles assigning the new top pointer's next to the original top pointer
-	topPtr = newNodePtr;
-	newNodePtr = nullptr;
+	topPointer = newNodePointer;
+	newNodePointer = nullptr;
 	return true;
 }
 
@@ -61,7 +61,7 @@ bool ListStack<ItemType>::pop() {
 template<class ItemType>
 ItemType ListStack<ItemType>::peek() const {
 	assert(!isEmpty());
-	return topPtr->getItem();
+	return topPointer->getItem();
 }
 
 template<class ItemType>
