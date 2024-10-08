@@ -136,25 +136,9 @@ public:
     // Copy move constructor, Hint: Don't forget to make a "hollow" data structure.
     ListStack(ListStack&& other) noexcept {
         // TODO
-        Node<T>* originalStackPointer = other.top;
-        if (originalStackPointer == nullptr) {
-            top = nullptr;
-        }
-        else {
-            top = new Node<T>(originalStackPointer->getValue());
-            Node<T>* newStackPointer = top;
-            originalStackPointer = originalStackPointer->getNext();
-            while (originalStackPointer != nullptr) {
-                T nextValue = originalStackPointer->getValue();
-                Node<T>* newNodePointer = new Node<T>(nextValue);
-                newStackPointer->setNext(newNodePointer);
-                newStackPointer = newStackPointer->getNext();
-                originalStackPointer = originalStackPointer->getNext();
-                other.pop();
-            }
-            newStackPointer->setNext(nullptr);
-            other.pop();
-        }
+        top = other.top;
+        // set other top pointer to nullptr
+        other.top = nullptr;
     }
 
     bool isEmpty() const override {
@@ -227,7 +211,7 @@ bool areCurleyBracesMatched(const string& inputString) {
     if (inputString.length() == 0) {
         return true;
     }
-    ListStack<char> stack;
+    ArrayStack<char, MIN_ARRAY_SIZE> stack;
     for (auto ch : inputString) {
         if (ch == '{') {
             stack.push(ch);
@@ -257,7 +241,7 @@ bool isPalindrome(const string& inputString) {
     if (inputString.length() == 0 || inputString.length() == 1) {
         return true;
     }
-    ListStack<char> stack;
+    ArrayStack<char, MIN_ARRAY_SIZE> stack;
     int mid = inputString.length() / 2;
     for (int i = 0; i < mid; i++) {
         stack.push(inputString[i]);
@@ -290,7 +274,7 @@ void testIsPalindrome() {
 string reversedString(const string& inputString) {
     // TODO
     string reversed;
-    ListStack<char> stack;
+    ArrayStack<char, MIN_ARRAY_SIZE> stack;
     for (auto ch : inputString) {
         stack.push(ch);
     }
