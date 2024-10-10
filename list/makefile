@@ -1,4 +1,4 @@
-main: ListInterface.h ArrayList.h main.cpp
+main: ListInterface.h ArrayList.h main.cpp LinkedList.h Node.h
 	g++ -Wall -g $^ -o main
 
 clean:
