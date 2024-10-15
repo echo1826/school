@@ -127,3 +127,26 @@ ItemType LinkedList<ItemType>::replace(int position, const ItemType& newEntry) {
     }
     return current->getItem();
 }
+
+template<class ItemType>
+Node<ItemType>* LinkedList<ItemType>::insertNode(int position, Node<ItemType>* newNodePointer, Node<ItemType>* subChainPointer) {
+    if(position == 1) {
+        newNodePointer->setNext(subChainPointer);
+        subChainPointer = newNodePointer;
+        itemCount++;
+    } else {
+        Node<ItemType>* afterPointer = insertNode(position - 1, newNodePointer, subChainPointer->getNext());
+        subChainPointer->setNext(afterPointer);
+    }
+    return subChainPointer;
+}
+
+template<class ItemType>
+bool LinkedList<ItemType>::insertRecursion(int position, const ItemType& newItem) {
+    if(position < 1 || position > itemCount + 1) {
+        return false;
+    }
+    Node<ItemType>* newNodePointer = new Node<ItemType>(newItem);
+    head = insertNode(position, newNodePointer, head);
+    return true;
+}

@@ -10,6 +10,7 @@ class LinkedList : public ListInterface<ItemType> {
         Node<ItemType>* head;
         int itemCount;
         Node<ItemType>* getNode(int position) const;
+        Node<ItemType>* insertNode(int newPosition, Node<ItemType>* newNode, Node<ItemType>* subChainPointer);
     public:
         LinkedList();
         LinkedList(const LinkedList<ItemType>& list);
@@ -21,7 +22,7 @@ class LinkedList : public ListInterface<ItemType> {
         void clear();
         ItemType getEntry(int position) const;
         ItemType replace(int position, const ItemType& newEntry);
-
+        bool insertRecursion(int newPosition, const ItemType& newEntry);
 };
 
 
