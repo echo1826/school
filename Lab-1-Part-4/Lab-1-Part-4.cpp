@@ -96,6 +96,7 @@ int partitionArrayAboutPivotIndex(int pivotIndex, int arr[], int start, int end)
     //       * You can do this multiple ways; one pass, two passes, from center out, from ends in.
     int i = start;
     int pivotValue = arr[pivotIndex];
+    std::swap(arr[pivotIndex], arr[end]);
     for (int j = start; j < end; j++) {
         if (arr[j] < pivotValue) {
             std::swap(arr[i], arr[j]);
