@@ -90,8 +90,6 @@ bool LinkedList<ItemType>::remove(int position) {
         previousItem->setNext(current->getNext());
     }
     current->setNext(nullptr);
-    delete current;
-    current = nullptr;
     --itemCount;
     return true;
 }
