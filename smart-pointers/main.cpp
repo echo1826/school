@@ -56,7 +56,7 @@ void sharedPointersExample() {
                             // shared_ptr functionality to keep track of the
                             // amount of references to the object
   std::shared_ptr<MagicBox<std::string>> betterBoxPtr = std::make_shared<
-      MagicBox<std::string>>();  // using the standard make_shared well create
+      MagicBox<std::string>>();  // using the standard make_shared will create
                                  // both the object instance and the manager
                                  // object at the same time
   // for readability since the code above obscures the intent of code you can
