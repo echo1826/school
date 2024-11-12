@@ -9,6 +9,7 @@
 #include <queue>
 #include <cassert>
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
