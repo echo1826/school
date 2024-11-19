@@ -99,7 +99,7 @@ void weakPointersExample() {
 
 void methods() {
   // reset method
-  // mySmartPtr.reset(myOtherPtr); // equivalent to mySmartPtr = myOtherPtr
+  mySmartPtr.reset(myOtherPtr); // equivalent to mySmartPtr = myOtherPtr
   // if we were to pass no arugment to reset then it will be set to nullptr
 
   // get method returns the reference to the object in a raw pointer

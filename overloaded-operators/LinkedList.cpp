@@ -50,10 +50,17 @@ bool LinkedList<ItemType>::operator==(const LinkedList<ItemType>& rightHandSide)
     }
 }
 
-// template<class ItemType>
-// bool LinkedList<ItemType>::isEqualTo(const LinkedList<ItemType>& rightHandSide) const {
-//     return false;
-// }
+template<class friendItemType>
+std::ostream& operator<<(std::ostream& outStream, const LinkedList<friendItemType>& outputList) {
+    int position = 1;
+    auto current = outputList.head;
+    while(current != nullptr) {
+        outStream << position << ".\t" << current->getItem() << std::endl;
+        current = current->getNext();
+        position++;
+    }
+    return outStream;
+}
 
 template<class ItemType>
 bool LinkedList<ItemType>::isEmpty() const {

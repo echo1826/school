@@ -16,7 +16,11 @@ class LinkedList : public ListInterface<ItemType> {
         LinkedList(const LinkedList<ItemType>& list);
         virtual ~LinkedList();
         bool operator==(const LinkedList<ItemType>& rightHandSide) const; // overloading the == operator when we call it with another linkedlist comparison
-        bool isEqualTo(const LinkedList<ItemType>& rightHandSide) const;
+
+        // friend access gives methods access to private members of the class even if they are not a member of the class
+        template<class friendItemType> // because the << is not a member of the LinkedList class you must declare another template item type for the LinkedList parameter
+        friend std::ostream& operator<<(std::ostream& outputStream, const LinkedList<friendItemType>& outputList);
+
         bool isEmpty() const;
         int getLength() const;
         bool insert(int newPosition, const ItemType& newEntry);
