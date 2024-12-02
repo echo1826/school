@@ -58,7 +58,15 @@ Time get_event_time(const Event& e) {
 struct CompareEvent {
     bool operator()(const Event & e1, const Event & e2) {
         // TODO: Create a min heap by replacing true with a boolean expression.
-        return true;
+        if(std::holds_alternative<ArrivalEvent>(e1) && std::holds_alternative<ArrivalEvent>(e2)) {
+            return std::get<ArrivalEvent>(e1).arrivalTime < std::get<ArrivalEvent>(e2).arrivalTime;
+        } else if (std::holds_alternative<DepartureEvent>(e1) && std::holds_alternative<ArrivalEvent>(e2)) {
+            return std::get<DepartureEvent>(e1).departureTime < std::get<ArrivalEvent>(e2).arrivalTime;
+        } else if(std::holds_alternative<ArrivalEvent>(e1) && std::holds_alternative<DepartureEvent>(e2)) {
+            return std::get<ArrivalEvent>(e1).arrivalTime < std::get<DepartureEvent>(e2).departureTime;
+        } else {
+            return std::get<DepartureEvent>(e1).departureTime < std::get<DepartureEvent>(e2).departureTime;
+        }
     }
 };
 
@@ -158,6 +166,9 @@ private:
         }
 
         // TODO: Load all the input data from simulationInput into the event priority queue.
+        for(auto item : simulationInput) {
+            eventQueue.emplace(item);
+        }
     }
 
     // Sets up the simulation for the given number of tellers.
@@ -209,7 +220,18 @@ private:
 
         bool is_teller_available = teller.has_value();
 
+
         // TODO: Process an arrival event. Don't forget to set a teller to busy if they aren't.
+        if(!bankLine.empty() || !is_teller_available) {
+            Customer newCustomer = { arrivalEvent };
+            bankLine.push(newCustomer);
+        } else {
+            Teller worker = tellers.at(teller.value());
+            worker.startWork(arrivalEvent.arrivalTime);
+            Time departureTime = arrivalEvent.arrivalTime + arrivalEvent.transactionTime;
+            DepartureEvent newEvent = { departureTime, teller.value() };
+            eventQueue.emplace(newEvent);
+        }
     }
 
     // Process departure events.
@@ -221,6 +243,17 @@ private:
         size_t tellerIndex = departureEvent.tellerIndex;
 
         // TODO: Process a departure event. Don't forget to set a teller to not-busy if they are.
+        if(bankLine.empty()) {
+            std::cout << tellerIndex << std::endl;
+            Teller teller = tellers.at(tellerIndex);
+            teller.stopWork(currentTime);
+        } else {
+            Customer nextCustomer = bankLine.front();
+            bankLine.pop();
+            Time departureTime = nextCustomer.arrivalEvent.arrivalTime + nextCustomer.arrivalEvent.transactionTime;
+            DepartureEvent newDeparture = { departureTime, tellerIndex };
+            eventQueue.emplace(newDeparture);
+        }
     }
 
     // Runs the simulation.
