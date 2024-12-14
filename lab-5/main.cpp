@@ -149,7 +149,7 @@ protected:
         if (subTreePtr == nullptr)
             return 0;
         else
-            return 1 + max(getHeightHelper(subTreePtr->getLeftChildPtr()), getHeightHelper(subTreePtr->getRightChildPtr()));
+            return 1 + std::max(getHeightHelper(subTreePtr->getLeftChildPtr()), getHeightHelper(subTreePtr->getRightChildPtr()));
     }  // end getHeightHelper
 
     int getNumberOfNodesHelper(std::shared_ptr<BinaryNode<ItemType>> subTreePtr) const {
@@ -439,18 +439,18 @@ protected:
         // TODO
         if(node->getLeftChildPtr() == nullptr) {
             auto rightNode = node->getRightChildPtr();
-            delete node;
+            node.reset();
             return rightNode;
         }
         if(node->getRightChildPtr() == nullptr) {
             auto leftNode = node->getLeftChildPtr();
-            delete node;
+            node.reset();
             return leftNode;
         }
 
         auto currentNode = node->getRightChildPtr();
         while(currentNode != nullptr && currentNode->getLeftChildPtr() != nullptr) {
-            currentNode = current->getLeftChildPtr();
+            currentNode = currentNode->getLeftChildPtr();
         }
         node->setRightChildPtr(removeNode(node->getRightChildPtr()));
         return node;
